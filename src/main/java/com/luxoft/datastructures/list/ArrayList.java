@@ -4,6 +4,10 @@ public class ArrayList implements List {
     private Object[] array;
     private int size;
 
+    public ArrayList() {
+        this.array = new Object[10];
+    }
+
     @Override
     public void add(Object value) {
         array[size] = value;
@@ -12,51 +16,98 @@ public class ArrayList implements List {
 
     @Override
     public void add(Object value, int index) {
+        if(index > size + 1){
+            throw new IndexOutOfBoundsException("Index is larger than size of the Array List");
+        }
+       if(size == 10){
+           // Increase
+       }
 
+        for (int i = size; i > index ; i--) {
+            array[i] = array[i - 1];
+        }
+
+        this.set(value, index);
+        size++;
     }
 
     @Override
     public Object remove(int index) {
-        return null;
+        if(index > size){
+            throw new IndexOutOfBoundsException("Index is larger than size of the Array List");
+        }
+        Object o = get(index);
+        for (int i = index; i < size; i++) {
+            this.set(get(i+1), i);
+        }
+
+        size--;
+        return o;
     }
 
     @Override
     public Object get(int index) {
-        return null;
+        if(index > size){
+            throw new IndexOutOfBoundsException("Index is larger than size of the Array List");
+        }
+        return array[index];
     }
 
     @Override
     public Object set(Object value, int index) {
-        return null;
+        if(index > size){
+            throw new IndexOutOfBoundsException("Index is larger than size of the Array List");
+        }
+        Object o = array[index];
+        array[index] = value;
+        return o;
     }
 
     @Override
     public void clear() {
-
+        for (int i = 0; i < size; i++) {
+            array[i] = null;
+        }
+        size = 0;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     @Override
     public boolean contains(Object value) {
+        for (int i = 0; i < size; i++) {
+            if(array[i].equals(value)){
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public int indexOf(Object value) {
-        return 0;
+        for (int i = 0; i < size; i++) {
+            if(array[i].equals(value)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
     public int lastIndexOf(Object value) {
-        return 0;
+        for (int i = size - 1; i >=0 ; i--) {
+            if(array[i].equals(value)){
+                return i;
+            }
+        }
+        return -1;
     }
 }
