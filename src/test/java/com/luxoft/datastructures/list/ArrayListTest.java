@@ -1,6 +1,7 @@
 package com.luxoft.datastructures.list;
 
 import com.luxoft.datastructures.stack.ArrayStack;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -118,5 +119,71 @@ public class ArrayListTest {
         arrayList.add(4);
 
         assertEquals(4, arrayList.lastIndexOf(4));
+    }
+
+    @Test
+    public void testThrowIndexBoundsOfOutExceptionWithLargerIndex() {
+        ArrayList arrayList = new ArrayList();
+        arrayList.add(1);
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+            arrayList.add(2, 2);
+        });
+    }
+
+    @Test
+    public void testThrowIndexBoundsOfOutExceptionWithLargerIndexOnRemove() {
+        ArrayList arrayList = new ArrayList();
+        arrayList.add(1);
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+            arrayList.remove(1);
+        });
+    }
+
+    @Test
+    public void testThrowIndexBoundsOfOutExceptionWithLargerGetIndex() {
+        ArrayList arrayList = new ArrayList();
+        arrayList.add(1);
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+            arrayList.get(1);
+        });
+    }
+
+    @Test
+    public void testVerifyArrayResizedWhenMeetLimitation() {
+        ArrayList arrayList = new ArrayList();
+
+        // by default array list has size 10
+        // Let fill current instance with 10 new objects
+        for (int i = 0; i < 10; i++) {
+            arrayList.add(i);
+        }
+
+        assertEquals(10, arrayList.size());
+
+        // add an extra value to the list so it will increase own size
+        arrayList.add(11);
+
+        assertEquals(11, arrayList.size());
+    }
+
+    @Test
+    public void testVerifySizeIsChangesWhenAddAndRemoveValues() {
+        ArrayList arrayList = new ArrayList();
+        assertEquals(0, arrayList.size());
+        arrayList.add(1);
+        assertEquals(1, arrayList.size());
+        arrayList.remove(arrayList.size() - 1);
+        assertEquals(0, arrayList.size());
+    }
+
+    @Test
+    public void testArrayListIsEmpptyAfterClearMethod() {
+        ArrayList arrayList = new ArrayList();
+        arrayList.add(1);
+        arrayList.add(2);
+        arrayList.add(3);
+        assertFalse(arrayList.isEmpty());
+        arrayList.clear();
+        assertTrue(arrayList.isEmpty());
     }
 }

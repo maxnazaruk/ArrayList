@@ -10,17 +10,27 @@ public class ArrayList implements List {
 
     @Override
     public void add(Object value) {
-        array[size] = value;
-        size++;
+        if(size == array.length){
+            resize();
+        }
+        array[size++] = value;
+    }
+
+    public void resize(){
+        Object[] resizedArray = new Object[(int)(array.length * 1.5)];
+        for (int i = 0; i < size; i++) {
+            resizedArray[i] = array[i];
+        }
+        array = resizedArray;
     }
 
     @Override
     public void add(Object value, int index) {
-        if(index > size + 1){
+        if(index > size){
             throw new IndexOutOfBoundsException("Index is larger than size of the Array List");
         }
-       if(size == 10){
-           // Increase
+       if(size == array.length){
+           resize();
        }
 
         for (int i = size; i > index ; i--) {
@@ -33,11 +43,11 @@ public class ArrayList implements List {
 
     @Override
     public Object remove(int index) {
-        if(index > size){
+        if(index > size - 1){
             throw new IndexOutOfBoundsException("Index is larger than size of the Array List");
         }
         Object o = get(index);
-        for (int i = index; i < size; i++) {
+        for (int i = index; i < size - 1; i++) {
             this.set(get(i+1), i);
         }
 
@@ -47,7 +57,7 @@ public class ArrayList implements List {
 
     @Override
     public Object get(int index) {
-        if(index > size){
+        if(index > size  - 1){
             throw new IndexOutOfBoundsException("Index is larger than size of the Array List");
         }
         return array[index];
