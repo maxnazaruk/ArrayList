@@ -186,4 +186,13 @@ public class ArrayListTest {
         arrayList.clear();
         assertTrue(arrayList.isEmpty());
     }
+
+    @Test
+    public void testVerifyToString() {
+        ArrayList arrayList = new ArrayList();
+        arrayList.add(1);
+        arrayList.add(2);
+        arrayList.add(3);
+        assertEquals("[1, 2, 3]", arrayList.toString());
+    }
 }

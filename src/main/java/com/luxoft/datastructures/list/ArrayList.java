@@ -120,4 +120,16 @@ public class ArrayList implements List {
         }
         return -1;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("[");
+        for (int i = 0; i < size - 1; i++) {
+
+            stringBuilder.append(array[i] + ", ");
+        }
+        stringBuilder.append(array[size - 1] + "]");
+        return stringBuilder.toString();
+    }
 }
