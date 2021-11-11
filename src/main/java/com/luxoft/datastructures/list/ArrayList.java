@@ -1,6 +1,8 @@
 package com.luxoft.datastructures.list;
 
-public class ArrayList implements List {
+import java.util.Iterator;
+
+public class ArrayList implements List, Iterable {
     private Object[] array;
     private int size;
 
@@ -131,5 +133,24 @@ public class ArrayList implements List {
         }
         stringBuilder.append(array[size - 1] + "]");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new IClass();
+    }
+
+    public class IClass implements Iterator{
+        int index = 0;
+
+        @Override
+        public boolean hasNext() {
+            return index < size;
+        }
+
+        @Override
+        public Object next() {
+            return get(index++);
+        }
     }
 }
